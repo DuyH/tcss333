@@ -9,6 +9,6 @@
 #include <stdio.h>
 
 int main(void) {
-	printf("Hello GitHub!");
+	printf("Hello Git!");
 	return 1;
 }
