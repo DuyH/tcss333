@@ -49,7 +49,7 @@ double bin2float() {
 	float sum = 0;
 	char c;
 
-	while (scanf(" %c", &c) != '\n') {
+	while (scanf(" %c", &c) != ' ') {
 		sum = sum * 2;
 		printf("%f", sum);
 		if (c == '1') {
@@ -57,10 +57,12 @@ double bin2float() {
 			sum = sum + 1;
 			printf("%f", sum);
 		}
+		if (c == '.') {
+			continue;
+		}
 	}
-
-	printf("%d", sum);
-	return 0;
+	printf("Exited!");
+	return sum;
 }
 
 void selectOperator(char c) {
