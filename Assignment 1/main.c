@@ -31,13 +31,12 @@ int main(void) {
 	char operator;
 
 	// Scans a line
-	while (scanf("%c", &c) == 1) {
 
-		operand1 = bin2float();
+	bin2float();
+	//scanf(" %c ", &operator);
+	//printf("%c", operator);
 
-		// Store
-
-	}
+	// Store
 
 	// Echos c
 	//printf("%c", c);
@@ -45,9 +44,28 @@ int main(void) {
 	return 0;
 }
 
+double bin2float() {
+
+	float sum = 0;
+	char c;
+
+	while (scanf(" %c", &c) != '\n') {
+		sum = sum * 2;
+		printf("%f", sum);
+		if (c == '1') {
+			printf("Detected a 1! Adding to sum! ");
+			sum = sum + 1;
+			printf("%f", sum);
+		}
+	}
+
+	printf("%d", sum);
+	return 0;
+}
+
 void selectOperator(char c) {
 
-	//Check the operator then redirect to correct operation function:
+//Check the operator then redirect to correct operation function:
 	if (c == '+' || c == '-' || c == '*' || c == '/') {
 
 		char operator = c;
