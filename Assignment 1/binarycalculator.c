@@ -1,13 +1,21 @@
 /*
- * main.c
+ * Duy Huynh
+ * TCSS 333 - Spring '15
+ * Assignment 1
+ * binarycalculator.c
  *
- *  Created on: Apr 2, 2015
- *      Author: Duy
+ * This program calculates various operations (+, -, *, /)
+ * on two binary numbers given by console input. The output
+ * is the answer, given in binary as well. 'q' to quit.
+ * Format of input example: 1010.001 * 11.11. There may be any
+ * number of spaces between the operator. Each number must have a
+ * decimal point and numbers (1 or 0) on either side.
+ *
  */
 
 #include <stdio.h>
 
-#define MAX 20
+#define MAX 20 // Maximum length that a printed number can be
 
 //function prototypes:
 double binToDec(char binary[]);
@@ -19,16 +27,15 @@ int main(void) {
 	// John recommended to put this as first line:
 	setvbuf(stdout, NULL, _IONBF, 0);
 
-	// Read the next non-space character
-
+	// Continue to perform calculations until user quits:
 	while (1) {
 
 		char op;
 		double operand1;
 		double operand2;
 		double answer;
-		char firstNumString[MAX];
-		char secNumString[MAX];
+		char firstNumString[MAX] = { }; // initialize to zero-out the array,
+		char secNumString[MAX] = { }; // preventing wrong answers
 
 		// Store first operand string
 		scanf("%s", firstNumString);
@@ -62,10 +69,12 @@ int main(void) {
 	return 0;
 }
 
+// Takes a binary number with fractional in a char[] and converts to a double.
 double binToDec(char binary[]) {
 
 	double sum = 0;
 	double power = 1;
+
 	for (int i = 0; i < MAX; i++) {
 
 		if (binary[i] == '.') {
