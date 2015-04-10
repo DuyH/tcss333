@@ -14,7 +14,7 @@ double addition(double operand1, double operand2);
 double subtraction(double operand1, double operand2);
 double multiplication(double operand1, double operand2);
 double division(double operand1, double operand2);
-void selectOperator(char c);
+double operate(char c);
 
 //vars
 #define TRUE 1;
@@ -49,41 +49,55 @@ double bin2float() {
 	float sum = 0;
 	char c;
 
-	while (scanf(" %c", &c) != ' ') {
-		sum = sum * 2;
-		printf("%f", sum);
+	while (scanf(" %c", &c)) {
+		sum *= 2;
 		if (c == '1') {
-			printf("Detected a 1! Adding to sum! ");
-			sum = sum + 1;
-			printf("%f", sum);
+			printf("1!");
+			sum += 1;
 		}
 		if (c == '.') {
-			continue;
+
+			float power = 1.0;
+			while (scanf(" %s", &c)) {
+				power /= 2;
+				if (c == '1') {
+					sum += power;
+					printf("1!");
+				} else if (c == '0') {
+					printf("0!");
+				}
+			}
+			printf("exited period while loop\n");
+
 		}
 	}
 	printf("Exited!");
+	printf("%f", sum);
+
 	return sum;
 }
 
-void selectOperator(char c) {
+double operate(char c, float operand1, float operand2) {
 
 //Check the operator then redirect to correct operation function:
 	if (c == '+' || c == '-' || c == '*' || c == '/') {
 
-		char operator = c;
-
 		switch (c) {
 		case '+':
 			printf("Addition!");
+			return operand1 + operand2;
 			break;
 		case '-':
 			printf("Subtraction!");
+			return operand1 - operand2;
 			break;
 		case '*':
 			printf("Multiplication!");
+			return operand1 * operand2;
 			break;
 		case '/':
 			printf("Division!");
+			return operand1 / operand2;
 			break;
 		default:
 			//code:
