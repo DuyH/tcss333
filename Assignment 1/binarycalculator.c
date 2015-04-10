@@ -75,7 +75,8 @@ double binToDec(char binary[]) {
     double power = 1;
 
     // Iterate through the length of the array
-    for (int i = 0; i < MAX; i++) {
+    int i;
+    for (i = 0; i < MAX; i++) {
 
         if (binary[i] == '.') {
             power = 0.5;
@@ -170,7 +171,8 @@ void decToBin(double answer) {
     }
 
     // Print out the right-hand side:
-    for (int i = 0; i < MAX; i++) {
+    int i;
+    for (i = 0; i < MAX; i++) {
 
         if (answer >= power) {
             printf("1");
