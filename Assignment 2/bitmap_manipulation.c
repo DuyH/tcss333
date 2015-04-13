@@ -30,6 +30,8 @@ int main(void) {
 	char header2[16]; // bytes after the image size piece
 	fread(header2, 1, 16, infile1);
 
+	int pixelSize = width * height * 4;
+
 	// Store pixel data of first image in pixelsIn1 2d-array
 	char pixelsIn1[width][height * 3]; //[rows][cols]
 	fread(pixelsIn1, 1, imageSize, infile1); // read in the image file
@@ -59,7 +61,7 @@ int main(void) {
 	fwrite(&height, sizeof(int), 1, outfile1);
 	fwrite(&imageSize, sizeof(int), 1, outfile1);
 	fwrite(header2, 1, 16, outfile1);
-	fwrite(pixelsIn1, 1, imageSize, outfile1); // read in the image file
+	fwrite(pixelsOut1, 1, pixelSize, outfile1); // read in the image file
 
 //	// Write to outfile2 (checkered.bmp)
 //	fwrite(header1, 1, 34, outfile1);
