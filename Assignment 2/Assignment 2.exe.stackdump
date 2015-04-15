@@ -1,8 +1,0 @@
-Exception: STATUS_ACCESS_VIOLATION at eip=6112295F
-eax=2006A002 ebx=20069D58 ecx=00000004 edx=20069F2C esi=2006A002 edi=61121668
-ebp=0022AA98 esp=0022AA8C program=H:\git\tcss333\Assignment 2\Debug\Assignment 2.exe, pid 872, thread main
-cs=001B ds=0023 es=0023 fs=003B gs=0000 ss=0023
-Stack trace:
-Frame     Function  Args
-0022AA98  6112295F (61121668, 2006A002, 00000004, 6113D30C)
-End of stack trace
