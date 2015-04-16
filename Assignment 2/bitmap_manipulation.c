@@ -20,11 +20,9 @@ int main(void) {
 
     int width;
     fread(&width, sizeof(int), 1, infile1);
-    printf("Width: %d\n", width);
 
     int height;
     fread(&height, sizeof(int), 1, infile1);
-    printf("Height: %d\n", height);
 
     char header2[28];
     fread(header2, 1, 28, infile1);
@@ -61,10 +59,13 @@ int main(void) {
 
     for (r = 0; r < height; r++) {
         for (c = 0; c < width * 3; c++) {
-            if (c % (width * 3 / 8) == 0) {
+
+            if (c % (width * 3 / 8) == 0) { // Changes by column
                 flag++;
             }
-            if (flag % height == 0) {
+
+            // Switch the source pixel array order
+            if (flag % height == 0) { // Changes by row
                 flag++;
             }
             if (flag % 2 == 0) {
