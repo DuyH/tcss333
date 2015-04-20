@@ -2,7 +2,7 @@
  * babynames.c
  *
  *  Created on: Apr 20, 2015
- *      Author: duy
+ *      Author: duy huynh
  */
 
 #define MAX_NAME_LENGTH 100
