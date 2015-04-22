@@ -9,5 +9,6 @@
 
 int main(void) {
 	printf("Hello world!");
+	printf("This is a test!");
 	return 1;
 }
