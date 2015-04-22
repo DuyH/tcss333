@@ -2,7 +2,7 @@
  * main.c
  *
  *  Created on: Apr 6, 2015
- *      Author: duy
+ *      Author: duy huynh
  */
 
 #include <stdio.h>
