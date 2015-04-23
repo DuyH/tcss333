@@ -12,38 +12,43 @@
 #define MAX_NAMES 100
 #define MAX_TOTAL_NAMES 1000
 
-void readAll();
+void readAllFiles();
 void readFile();
-void processNameRank();
+void parseLine();
 void alphabetize();
 void outputFile();
 
 int main(void) {
-    processNameRank();
-    readAll();
+
+    FILE *nameFile = fopen("yob1920.txt", "r");
+    readFile(nameFile);
+
+    //parseLine();
+    //readAllFiles();
 }
 
-void readAll() {
+void readAllFiles() {
 
-    // Make array of File pointers
-    FILE *fileName[10];
-    char allFile[] = "yob";
+}
+
+void readFile(FILE *fileArr) {
+
+    // Take a File *pointer
+    // Take each line as a String, put into array
+    // Return this array
+
+    char lineEntries[100];
 
     int i;
-    int year = 1910;
-    char buffer[4];
-    for (i = 0; i < 10; i++) {
-        year += i * 10;
-        sprintf(buffer, "%d", year);
-        printf(buffer);
-        strcat(allFile, "1020");
-        strcat(allFile, "\.txt");
+    for (i = 0; i < LINE_BUFFER; i++) {
+        fgets(lineEntries, LINE_BUFFER, fileArr);
     }
-    printf("%s", allFile);
 
+    for (i = 0; i < LINE_BUFFER; i++) {
+        printf("%s", fileArr[i]);
+    }
 }
-
-void processNameRank() {
+void parseLine() {
 
 //fgets reads a string from file
 //fgets returns null if EOF reached!
@@ -67,7 +72,7 @@ void processNameRank() {
     char *rankPtr = rank;
 
 // Read name into array until ","
-    int i;
+    int i = 0;
     while (line[i] != ',') {
         *namePtr++ = line[i++];
     }
@@ -87,3 +92,4 @@ void processNameRank() {
 // Now I need to search the namesArray for the name and insert it, plus its rank
 
 }
+
