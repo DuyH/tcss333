@@ -16,9 +16,9 @@
 
 void readAllFiles();
 void readFile();
-void processOneNameRank();
-void sortArrays();
-void createOutputFile();
+//void processOneNameRank();
+//void sortArrays();
+//void createOutputFile();
 
 int main(void) {
     printf("This is main!\n");
@@ -29,12 +29,12 @@ int main(void) {
 
 void readAllFiles() {
 
-    char totalNames[MAX_NAMES][MAX_NAME_LENGTH] = { '/0' };
+    char totalNames[MAX_NAMES][MAX_NAME_LENGTH];
     int totalRanks[MAX_NAMES][MAX_NUM_YEARS];
 
     int year = 0;
     readFile("names/yob1920.txt", &totalNames, &totalRanks, year++);
-    readFile("names/yob1930.txt", &totalNames, &totalRanks, year++);
+    //readFile("names/yob1930.txt", &totalNames, &totalRanks, year++);
     //readFile("names/yob1940.txt", &totalNames, &totalRanks, year++);
     //readFile("names/yob1950.txt", &totalNames, &totalRanks, year++);
     //readFile("names/yob1960.txt", &totalNames, &totalRanks, year++);
@@ -76,20 +76,20 @@ void readFile(char *fileName, char (*totalNames)[MAX_NAME_LENGTH],
 
 void processOneNameRank(char *name, int rank, int year,
         char (*totalNames)[MAX_NAMES], int (*totalRanks)[MAX_NUM_YEARS]) {
-    printf("This is processOneNameRank!");
     int i;
-    for (i = 0; i < 1; i++) {
+    for (i = 0; i < 50; i++) {
 
         if (strcmp(name, totalNames[i]) == 0) {
-            printf("Equal!");
             totalRanks[i][year] = rank;
+            printf("%s ", totalNames[i]);
             break;
         } else if (totalNames[i][0] == '\0') {
             strcpy(totalNames[i], name);
             totalRanks[i][year] = rank;
+            printf("%s ", totalNames[i]);
             break;
         }
+
     }
 
-    printf("%s", totalNames[1]);
 }
