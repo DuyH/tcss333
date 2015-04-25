@@ -31,9 +31,7 @@ int main(void) {
     readAllFiles(totalNames, totalRanks);
     sortArrays(totalNames, totalRanks);
 
-    int i;
-    for (i = 0; i < MAX_NAMES; i++)
-        printf("NAME: %s, Rank: %d\n", totalNames[i], totalRanks[i][0]);
+    createOutputFile(totalNames, totalRanks);
 
     return 0;
 }
@@ -117,25 +115,61 @@ void processOneNameRank(char *name, int rank, int year,
 void sortArrays(char (*totalNames)[MAX_NAME_LENGTH],
         int (*totalRanks)[MAX_NUM_YEARS]) {
 
-    int j;
-    for (j = 0; j < MAX_NAMES; j++) {
-        int i;
-        for (i = 0; i < MAX_NAMES - 1; i++) {
-            if (strcmp(totalNames[i], totalNames[i + 1]) > 0) {
-                char temp[strlen(totalNames[i] + 1)];
-                strcpy(temp, totalNames[i]);
-                strcpy(totalNames[i], totalNames[i + 1]);
-                strcpy(totalNames[i + 1], temp);
+    int i, j, k;
 
-                int k;
-                for (k = 0; k < 10; k++) {
-                    int temp2;
-                    temp2 = totalRanks[i][k];
-                    totalRanks[i][k] = totalRanks[i + 1][k];
-                    totalRanks[i + 1][k] = temp2;
+    // Good ol' bubble sort - alphabetize edition:
+    for (i = 0; i < MAX_NAMES; i++) {
+
+        // Bubble up one name:
+        for (j = 0; j < MAX_NAMES - 1; j++) {
+
+            // Compare neighboring names and swap if out of order:
+            if (strcmp(totalNames[j], totalNames[j + 1]) > 0) {
+
+                // Create a temp for name and swap:
+                char temp[strlen(totalNames[j] + 1)];
+                strcpy(temp, totalNames[j]);
+                strcpy(totalNames[j], totalNames[j + 1]);
+                strcpy(totalNames[j + 1], temp);
+
+                // Now also swap ALL years' ranks to new position:
+                for (k = 0; k < MAX_NUM_YEARS; k++) {
+                    int tempRank;
+                    tempRank = totalRanks[j][k];
+                    totalRanks[j][k] = totalRanks[j + 1][k];
+                    totalRanks[j + 1][k] = tempRank;
                 }
             }
         }
     }
+}
 
+void createOutputFile(char (*totalNames)[MAX_NAME_LENGTH],
+        int (*totalRanks)[MAX_NUM_YEARS]) {
+
+    FILE *csvOutFile = fopen("summary.csv", "w");
+
+    // Write to file the column headings:
+    char colHeadings[] = {
+            "Name,1920,1930,1940,1950,1960,1970,1980,1990,2000,2010,\n" };
+    fwrite(colHeadings, 1, sizeof(colHeadings), csvOutFile);
+
+    // Write name and rankings:
+    int i;
+    for (i = 0; i < MAX_NAMES; i++) {
+        printf("NAME: %s ", totalNames[i]);
+
+        //fwrite(totalNames[i], 1, strlen(totalNames[i]) + 1, csvOutFile);
+        //fwrite(",", 1, sizeof(char), csvOutFile);
+
+        int j;
+        for (j = 0; j < MAX_NUM_YEARS; j++) {
+            printf("%d,", totalRanks[i][j]);
+            //putc(',', csvOutFile);
+        }
+        printf("\n");
+        //putc('\n', csvOutFile);
+
+    }
+    fclose(csvOutFile);
 }
