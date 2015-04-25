@@ -1,25 +1,36 @@
 /*
- * main.c
+ * Duy Huynh
+ * TCSS 333 - Spring '15
+ * Assignment 3
+ * popular_names.c
  *
- *  Created on: Mar 29, 2015
- *      Author: Duy
+ * This program takes the first 100 names each from 10 files
+ * that contain names with popularity rankings across the years.
+ * The names are then alphabetized and written to a csv file,
+ * along with 10 years' of rankings for each name.
+ *
  */
 
 #include <stdio.h>
 #include <string.h>
 
-#define MAX_NAME_LENGTH 20
+#define MAX_NAME_LENGTH 20 // For line buffer writing
 #define MAX_NAMES 366 // Number retrieved from class consensus on Catalyst
-#define MAX_NUM_YEARS 10
-#define MAX_TOP_NAMES 100
+#define MAX_NUM_YEARS 10 // Essentially how many files to read (years)
+#define MAX_TOP_NAMES 100 // Take only 100 names from each file
 
-//void readAllFiles();
-//void readFile();
-//void processOneNameRank(char *name, int rank, int year,
-//        char (*totalNames)[MAX_NAME_LENGTH], int (*totalRanks)[MAX_NUM_YEARS]);
-//void sortArrays();
-//void createOutputFile();
+void readAllFiles(char (*totalNames)[MAX_NAME_LENGTH],
+        int (*totalRanks)[MAX_NUM_YEARS]);
+void readFile(char *fileName, char (*totalNames)[MAX_NAME_LENGTH],
+        int (*totalRanks)[MAX_NUM_YEARS], int year);
+void processOneNameRank(char *name, int rank, int year,
+        char (*totalNames)[MAX_NAME_LENGTH], int (*totalRanks)[MAX_NUM_YEARS]);
+void sortArrays(char (*totalNames)[MAX_NAME_LENGTH],
+        int (*totalRanks)[MAX_NUM_YEARS]);
+void createOutputFile(char (*totalNames)[MAX_NAME_LENGTH],
+        int (*totalRanks)[MAX_NUM_YEARS]);
 
+// Main program
 int main(void) {
 
     // 2D array for names
@@ -91,10 +102,10 @@ void readFile(char *fileName, char (*totalNames)[MAX_NAME_LENGTH],
 void processOneNameRank(char *name, int rank, int year,
         char (*totalNames)[MAX_NAME_LENGTH], int (*totalRanks)[MAX_NUM_YEARS]) {
 
-    int i;
     char *namePtr = &totalNames[0][0];
 
     // Find a place in the array to put name+rank pair:
+    int i;
     for (i = 0; i < MAX_NAMES; i++) {
 
         // If name already present, just add the rank:
@@ -134,8 +145,7 @@ void sortArrays(char (*totalNames)[MAX_NAME_LENGTH],
 
                 // Now also swap ALL years' ranks to new position:
                 for (k = 0; k < MAX_NUM_YEARS; k++) {
-                    int tempRank;
-                    tempRank = totalRanks[j][k];
+                    int tempRank = totalRanks[j][k];
                     totalRanks[j][k] = totalRanks[j + 1][k];
                     totalRanks[j + 1][k] = tempRank;
                 }
@@ -144,6 +154,7 @@ void sortArrays(char (*totalNames)[MAX_NAME_LENGTH],
     }
 }
 
+// Write the name and ranks to a csv file:
 void createOutputFile(char (*totalNames)[MAX_NAME_LENGTH],
         int (*totalRanks)[MAX_NUM_YEARS]) {
 
@@ -159,7 +170,6 @@ void createOutputFile(char (*totalNames)[MAX_NAME_LENGTH],
     for (i = 0; i < MAX_NAMES; i++) {
 
         // Print names:
-        printf("NAME: %s ", totalNames[i]);
         fprintf(csvOutFile, "%s,", totalNames[i]);
 
         // Print rankings:
@@ -167,8 +177,10 @@ void createOutputFile(char (*totalNames)[MAX_NAME_LENGTH],
         for (j = 0; j < MAX_NUM_YEARS; j++) {
             fprintf(csvOutFile, "%d,", totalRanks[i][j]);
         }
-        fprintf(csvOutFile, "\n");
+        fprintf(csvOutFile, "\n"); // Start new row
 
     }
+
+    // Close out the file:
     fclose(csvOutFile);
 }
