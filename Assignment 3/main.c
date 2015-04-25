@@ -157,18 +157,17 @@ void createOutputFile(char (*totalNames)[MAX_NAME_LENGTH],
     // Write name and rankings:
     int i;
     for (i = 0; i < MAX_NAMES; i++) {
+
+        // Print names:
         printf("NAME: %s ", totalNames[i]);
+        fprintf(csvOutFile, "%s,", totalNames[i]);
 
-        //fwrite(totalNames[i], 1, strlen(totalNames[i]) + 1, csvOutFile);
-        //fwrite(",", 1, sizeof(char), csvOutFile);
-
+        // Print rankings:
         int j;
         for (j = 0; j < MAX_NUM_YEARS; j++) {
-            printf("%d,", totalRanks[i][j]);
-            //putc(',', csvOutFile);
+            fprintf(csvOutFile, "%d,", totalRanks[i][j]);
         }
-        printf("\n");
-        //putc('\n', csvOutFile);
+        fprintf(csvOutFile, "\n");
 
     }
     fclose(csvOutFile);
