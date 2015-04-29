@@ -1,0 +1,5 @@
+Seattle 76
+Portland 83
+Vancouver 71
+Spokane 65
+Boise 74
