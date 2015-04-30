@@ -47,8 +47,8 @@ void displayPeople(Person ppl[], int pplCount) {
 }
 
 void addPerson(Person newPerson, Person ppl[], int *pplCount) {
-	ppl[*pplCount] = newPerson;
-	(*pplCount)++;
+    ppl[*pplCount] = newPerson;
+    (*pplCount)++;
 }
 
 int main(void) {
