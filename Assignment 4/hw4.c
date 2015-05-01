@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 
 #define MAX_NAME_LENGTH 29
 #define MAX_CUSTOMERS 20
@@ -24,9 +25,9 @@ void sortByTime();
 
 struct item {
 
-    char itemName[MAX_NAME_LENGTH];
-    int numOrdered;
-    double price;
+	char itemName[MAX_NAME_LENGTH];
+	int numOrdered;
+	double price;
 
 };
 
@@ -34,9 +35,9 @@ typedef struct item Item;
 
 struct customer {
 
-    char name[MAX_NAME_LENGTH];
-    Item purchases[MAX_ITEMS];
-    int numItems;
+	char name[MAX_NAME_LENGTH];
+	Item purchases[MAX_ITEMS];
+	int itemCount;
 
 };
 
@@ -44,42 +45,68 @@ typedef struct customer Customer;
 
 int main(void) {
 
-    setvbuf(stdout, NULL, _IONBF, 0);
+	setvbuf(stdout, NULL, _IONBF, 0);
 
-    readFile();
+	// Create an aray of Customer structs
+	Customer clientele[MAX_CUSTOMERS];
+
+	readFile(clientele);
 
 // Create
-    return 1;
+	return 1;
 }
 
-void readFile() {
+void readFile(Customer *clientele[MAX_CUSTOMERS]) {
 
 // Take input file:
-    FILE *inputFile = fopen("hw4input.txt", "r");
+	FILE *inputFile = fopen("hw4input.txt", "r");
 
-    // Declare the variables needed for reading each line
-    char customer[MAX_NAME_LENGTH];
-    int qty;
-    char item[MAX_NAME_LENGTH];
-    float price;
+	// Declare the variables needed for reading each line
+	char customer[MAX_NAME_LENGTH];
+	int qty;
+	char item[MAX_NAME_LENGTH];
+	float price;
 
-    while (!feof(inputFile)) { //while not end of file
+	while (!feof(inputFile)) { //while not end of file
 
-        // Acquire the data:
-        fscanf(inputFile, "%s%d%s $%f", customer, &qty, item, &price);
-        printf("%s %d %s $%.2f", customer, qty, item, price);
-        printf("\n");
+		// Acquire the data:
+		fscanf(inputFile, "%s%d%s $%f", customer, &qty, item, &price);
+		printf("%s %d %s $%.2f", customer, qty, item, price);
+		printf("\n");
 
-        // Create the item-struct
-        Item tempItem = { item, qty, price };
-        // While we're at this customer, add the item
+		// Create the customer-struct
+		Customer tempCustomer;
+		strcpy(tempCustomer.name, customer);
+		tempCustomer.itemCount++; // ++ customer's #of unique items
 
-        // Create the customer-struct
+		// addCustomer(return the index of the customer in the CustomerstructArray)
 
-        // Check if customer has already been created or not:
-        // If not, add the customer to the array of customer-structs
-        // If so just skip
+		// Create the item-struct + add to customer
+		Item tempItem;
+		strcpy(tempItem.itemName, item);
+		tempItem.numOrdered = qty;
+		tempItem.price = price;
+		tempCustomer.purchases[0] = tempItem;
 
-    }
+		printf("%s %d %s $%.2f\n", tempCustomer.name, tempItem.numOrdered,
+				tempItem.itemName, tempItem.price);
+
+		// add Customer to array?
+		// add Item to aray?
+
+	}
+}
+
+int addCustomer(Customer *clientele[MAX_CUSTOMERS], Customer newCustomer) {
+
+	// Search for the customer
+	int i;
+	for (i = 0; i < MAX_CUSTOMERS; i++) {
+		// If the Customer name is found, then exit
+		if (strcmp(clientele[i]->name, newCustomer.name)) {
+
+		}
+
+	}
 }
 
