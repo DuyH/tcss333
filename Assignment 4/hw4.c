@@ -70,20 +70,16 @@ void readFile() {
         printf("%s %d %s $%.2f", customer, qty, item, price);
         printf("\n");
 
+        // Create the item-struct
+        Item tempItem = { item, qty, price };
+        // While we're at this customer, add the item
+
         // Create the customer-struct
 
         // Check if customer has already been created or not:
         // If not, add the customer to the array of customer-structs
         // If so just skip
 
-        // Create the item-struct
-
-        // While we're at this customer, add the item
     }
-
-}
-
-int addCustomer(char *) {
-    int flag = 0;
 }
 
