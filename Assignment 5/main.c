@@ -6,16 +6,21 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include "list.h"
 
 #define MAX_WORD_LENGTH 30
-#define A 65
-#define Z 90
 #define ASCII_SHIFT 32
+
+void testList();
+void readText(char*);
 
 int main(void) {
 
-    readText("RedBadge.txt");
+    //readText("RedBadge.txt");
+
+    testList();
 
     return 1;
 }
@@ -36,23 +41,31 @@ void readText(char* fileName) {
         int i = 0;
         for (i = 0; i < strlen(word); i++) {
             // If the char is within the Uppercase range...
-            if (word[i] >= A && word[i] <= Z)
+            if (word[i] >= 'A' && word[i] <= 'Z')
                 // Convert to lower case, using ASCII shift
                 word[i] = word[i] + ASCII_SHIFT;
         }
 
         // Only allow legal chars (alphabetic, -, ')
         for (i = 0; i < strlen(word); i++) {
-            if (!((word[i] >= 'a' && word[i] <= 'z') || word[i] == 39
-                    || word[i] == 45)) {
+            if (!((word[i] >= 'a' && word[i] <= 'z') || word[i] == '-'
+                    || word[i] == '\'')) {
                 word[i] = '\0';
             }
         }
 
         // Now put the word into a node.
 
-        printf("%s", word);
+        printf("%s ", word);
 
     }
+}
+
+void testList() {
+    printf("Created a list!\n");
+    List *list = malloc(sizeof(List));
+    printf("Length of list: %d\n", length(list));
+    printf("Is the list empty? %d\n", isEmpty(list));
+    addWord(list,"HELLO",1)
 }
 
