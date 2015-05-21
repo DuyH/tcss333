@@ -13,19 +13,21 @@
 #define MAX_WORD_LENGTH 50
 #define ASCII_SHIFT 32
 
-void testList(List*);
-void readText(char*);
+void testList(List*); // del when done
+void readText(char*, List*);
 
 int main(void) {
 
-    readText("RedBadge.txt");
+    List *list = malloc(sizeof(List));
+
+    //readText("RedBadge.txt", list);
+
+    testList(list);
 
     return 1;
 }
 
-void readText(char* fileName) {
-
-    List *list = malloc(sizeof(List));
+void readText(char* fileName, List *list) {
 
     // Create FILE from text file
     FILE *inputFile = fopen(fileName, "r");
@@ -35,7 +37,7 @@ void readText(char* fileName) {
     while (!feof(inputFile)) {
 
         // Read in a word.
-        char word[MAX_WORD_LENGTH];
+        char *word = malloc(MAX_WORD_LENGTH);
         fscanf(inputFile, "%s", word);
 
         // Convert each uppercase to lowercase.
@@ -62,17 +64,29 @@ void readText(char* fileName) {
 
     }
     printList(list);
+    printf("%d", length(list));
 }
 
 void testList(List* list) {
 
-    addWord(list, "2", 1);
-    addWord(list, "2", 1);
-    addWord(list, "3", 1);
-    addWord(list, "3", 1);
-    addWord(list, "2", 1);
-    addWord(list, "1", 1);
-    addWord(list, "1", 1);
-    addWord(list, "1", 1);
+    addWord(list, "A", 1);
+    addWord(list, "B", 1);
+    addWord(list, "C", 1);
+    addWord(list, "D", 1);
+    addWord(list, "E", 1);
+    addWord(list, "F", 1);
+    addWord(list, "G", 1);
+    addWord(list, "H", 1);
+    addWord(list, "A", 1);
+    addWord(list, "B", 1);
+    addWord(list, "C", 1);
+    addWord(list, "D", 1);
+    addWord(list, "E", 1);
+    addWord(list, "F", 1);
+    addWord(list, "G", 1);
+    addWord(list, "H", 1);
+
+    printList(list);
+    printf("Length of list is %d", length(list));
 
 }
