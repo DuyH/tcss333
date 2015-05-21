@@ -28,6 +28,7 @@ int length(List *); // number of elements in list.
 int isEmpty(List *); // 0 not empty.
 void addWord(List *list, char *word, int text);
 void sortDescending(List *); // Sort by word freq diff.
+void printList(List *); // Print each word
 
 #endif /* LIST_H_ */
 

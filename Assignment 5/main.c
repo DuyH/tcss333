@@ -10,26 +10,27 @@
 #include <string.h>
 #include "list.h"
 
-#define MAX_WORD_LENGTH 30
+#define MAX_WORD_LENGTH 50
 #define ASCII_SHIFT 32
 
-void testList();
+void testList(List*);
 void readText(char*);
 
 int main(void) {
 
-    //readText("RedBadge.txt");
-
-    testList();
+    readText("RedBadge.txt");
 
     return 1;
 }
 
 void readText(char* fileName) {
 
+    List *list = malloc(sizeof(List));
+
     // Create FILE from text file
     FILE *inputFile = fopen(fileName, "r");
 
+    int j = 0;
     //Process each line until end-of-file reached
     while (!feof(inputFile)) {
 
@@ -55,17 +56,23 @@ void readText(char* fileName) {
         }
 
         // Now put the word into a node.
-
-        printf("%s ", word);
+        printf("%d) %s\n", j++, word);
+        addWord(list, word, 1);
+        // The problem: word is being wiped
 
     }
+    printList(list);
 }
 
-void testList() {
-    printf("Created a list!\n");
-    List *list = malloc(sizeof(List));
-    printf("Length of list: %d\n", length(list));
-    printf("Is the list empty? %d\n", isEmpty(list));
-    addWord(list,"HELLO",1)
-}
+void testList(List* list) {
 
+    addWord(list, "2", 1);
+    addWord(list, "2", 1);
+    addWord(list, "3", 1);
+    addWord(list, "3", 1);
+    addWord(list, "2", 1);
+    addWord(list, "1", 1);
+    addWord(list, "1", 1);
+    addWord(list, "1", 1);
+
+}
