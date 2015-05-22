@@ -1,8 +1,14 @@
 /*
+ * Duy Huynh
+ * TCSS 333 - Spring '15
+ * Assignment 4
  * list.c
  *
- *  Created on: May 18, 2015
- *      Author: duy
+ * Implements a singly linked list that works specifically for adding
+ * unique words and incrementing counters for duplicate words. This also
+ * has functions for sorting nodes by descending order of word count differences
+ * between two texts.
+ *
  */
 
 #include <stdio.h>
@@ -12,12 +18,14 @@
 
 void swapNodes(Node*, Node*);
 
-// Return the length of the linked list
+// Return the length of the linked list (also finds diffs)
 int length(List *linkedList) {
 
     Node *currNode = linkedList->head;
     int count = 0;
 
+    // Increment count for each node found.
+    // Also determine word count diff to save O(n) time.
     while (currNode != NULL) {
         count++;
         currNode->diff = abs(currNode->count1 - currNode->count2);
@@ -26,7 +34,7 @@ int length(List *linkedList) {
     return count;
 }
 
-// Return if empty...
+// Return whether or not list is empty
 int isEmpty(List *linkedList) {
     return linkedList->head == NULL;
 }
@@ -68,7 +76,7 @@ void addWord(List *list, char *word, int whichText) {
             // Move on to next node:
             currNode = currNode->next;
         }
-        // Have to check the last node too...
+        // Special case: Have to check the last node too...
         if (strcmp(currNode->word, word) == 0) {
             if (whichText == 1) {
                 currNode->count1++;
@@ -88,6 +96,7 @@ void addWord(List *list, char *word, int whichText) {
     }
 }
 
+// Sort by descending values of word count differences
 void sortDescending(List *list) {
 
     // First determine the length of the list
@@ -98,25 +107,23 @@ void sortDescending(List *list) {
 
     // Now bubble sort the list
 
-    int i, j, k;
-    for (i = 0; i < listLength; i++) {
-
+    int i, j;
+    for (i = 0; i < listLength - i; i++) {
         for (j = 0; j < listLength - i - 1; j++) {
-
+            //Swap data between adjacent nodes if out of place
             if (currNode->diff < currNode->next->diff) {
-                //switch data
                 swapNodes(currNode, currNode->next);
             }
             currNode = currNode->next;
-
         }
+        // Restart the sort at the beginning
         currNode = list->head;
 
     }
 
 }
 
-// Given two nodes, swap their data.
+// Given two nodes, swap just their data.
 void swapNodes(Node* node1, Node* node2) {
 
     // Swap the words
@@ -141,6 +148,7 @@ void swapNodes(Node* node1, Node* node2) {
 
 }
 
+// Print out ENTIRE linked list.
 void printList(List *list) {
     Node *currNode = list->head;
     int i;
@@ -149,7 +157,5 @@ void printList(List *list) {
                 currNode->count2, currNode->diff);
         currNode = currNode->next;
     }
-    printf("==============\n");
-
 }
 
