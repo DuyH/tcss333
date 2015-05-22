@@ -12,6 +12,7 @@ struct node {
     char *word;
     int count1;
     int count2;
+    int diff;
     struct node *next;
 };
 
@@ -23,7 +24,6 @@ struct list {
 
 typedef struct list List;
 
-void initializeList(List *); // Create empty list
 int length(List *); // number of elements in list.
 int isEmpty(List *); // 0 not empty.
 void addWord(List *list, char *word, int text);

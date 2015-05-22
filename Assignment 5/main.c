@@ -2,7 +2,7 @@
  * main.c
  *
  *  Created on: May 18, 2015
- *      Author: duy
+ *      Author: Duy Huynh
  */
 
 #include <stdio.h>
@@ -10,24 +10,28 @@
 #include <string.h>
 #include "list.h"
 
-#define MAX_WORD_LENGTH 50
+#define MAX_WORD_LENGTH 20
 #define ASCII_SHIFT 32
+#define PRINT_AMOUNT 50
 
-void testList(List*); // del when done
-void readText(char*, List*);
+void readText(char*, List*, int);
+void printInOrder(List*);
 
+// Main application, reads in two text files, sorts and prints
 int main(void) {
 
     List *list = malloc(sizeof(List));
 
-    //readText("RedBadge.txt", list);
-
-    testList(list);
+    readText("RedBadge.txt", list, 1);
+    readText("LittleRegiment.txt", list, 2);
+    sortDescending(list);
+    printInOrder(list);
 
     return 1;
 }
 
-void readText(char* fileName, List *list) {
+// Read in a text file, adding words and count to a list
+void readText(char* fileName, List *list, int textCount) {
 
     // Create FILE from text file
     FILE *inputFile = fopen(fileName, "r");
@@ -55,38 +59,33 @@ void readText(char* fileName, List *list) {
                     || word[i] == '\'')) {
                 word[i] = '\0';
             }
+
         }
 
         // Now put the word into a node.
-        printf("%d) %s\n", j++, word);
-        addWord(list, word, 1);
-        // The problem: word is being wiped
+        if (word[0] == '\0') { // Skip the "null" word
+            continue;
+        } else {
+            addWord(list, word, textCount);
+
+        }
 
     }
-    printList(list);
-    printf("%d", length(list));
 }
 
-void testList(List* list) {
+void printInOrder(List * list) {
 
-    addWord(list, "A", 1);
-    addWord(list, "B", 1);
-    addWord(list, "C", 1);
-    addWord(list, "D", 1);
-    addWord(list, "E", 1);
-    addWord(list, "F", 1);
-    addWord(list, "G", 1);
-    addWord(list, "H", 1);
-    addWord(list, "A", 1);
-    addWord(list, "B", 1);
-    addWord(list, "C", 1);
-    addWord(list, "D", 1);
-    addWord(list, "E", 1);
-    addWord(list, "F", 1);
-    addWord(list, "G", 1);
-    addWord(list, "H", 1);
+    Node *currNode = list->head;
 
-    printList(list);
-    printf("Length of list is %d", length(list));
+    // Print column headers
+    printf("    %-9s%-15s%-21s%10s\n", "Word", "RedBadge.txt", "LittleRegiment.txt",
+            "Difference");
 
+    int i = 1;
+    for (i = 1; i <= PRINT_AMOUNT; i++) {
+        printf("%.2d) %-10s %10d %20d %12d\n", i, currNode->word, currNode->count1,
+                currNode->count2, currNode->diff);
+        currNode = currNode->next;
+    }
 }
+
