@@ -12,18 +12,17 @@ void create_pool(int size);
 void *my_malloc(int size);
 void my_free(void *block);
 
+typedef enum {
+    FALSE, TRUE
+} Bool;
+
 struct block {
     void *startAddress;
     int size;
     Bool free;
-    Block next;
-
+    struct block *next;
 };
 
 typedef struct block Block;
-
-typedef enum {
-    FALSE, TRUE
-} Bool;
 
 #endif /* MALLOK_H_ */
