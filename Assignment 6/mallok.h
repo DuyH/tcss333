@@ -1,8 +1,14 @@
 /*
+ * Duy Huynh
+ * TCSS 333 - Spring '15
+ * Assignment 6
  * mallok.h
  *
- *  Created on: May 27, 2015
- *      Author: Duy
+ * Header file for mallok.c, my private heap
+ * memory management functions. Includes
+ * functions for allocating memory and freeing
+ * memory of a private heap managed by me.
+ *
  */
 
 #ifndef MALLOK_H_
@@ -11,6 +17,7 @@
 void create_pool(int size);
 void *my_malloc(int size);
 void my_free(void *block);
+void printBlocks();
 
 typedef enum {
     FALSE, TRUE
